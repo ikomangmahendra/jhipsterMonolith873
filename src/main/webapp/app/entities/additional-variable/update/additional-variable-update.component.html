@@ -1,0 +1,103 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-additional-variable-heading" data-cy="AdditionalVariableCreateUpdateHeading">Create or edit a Additional Variable</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let programVersionIdRef = editForm.get('programVersionId')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_programVersionId">Program Version Id</label>
+          <input
+            type="number"
+            class="form-control"
+            name="programVersionId"
+            id="field_programVersionId"
+            data-cy="programVersionId"
+            formControlName="programVersionId"
+          />
+          @if (programVersionIdRef.invalid && (programVersionIdRef.dirty || programVersionIdRef.touched)) {
+            <div>
+              @if (editForm.get('programVersionId')?.errors?.required) {
+                <small class="form-text text-danger">This field is required.</small>
+              }
+              <small class="form-text text-danger" [hidden]="!editForm.get('programVersionId')?.errors?.number"
+                >This field should be a number.</small
+              >
+            </div>
+          }
+        </div>
+
+        @let jsonSchemaRef = editForm.get('jsonSchema')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_jsonSchema">Json Schema</label>
+          <textarea
+            class="form-control"
+            name="jsonSchema"
+            id="field_jsonSchema"
+            data-cy="jsonSchema"
+            formControlName="jsonSchema"
+          ></textarea>
+          @if (jsonSchemaRef.invalid && (jsonSchemaRef.dirty || jsonSchemaRef.touched)) {
+            <div>
+              @if (editForm.get('jsonSchema')?.errors?.required) {
+                <small class="form-text text-danger">This field is required.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_version">Version</label>
+          <select
+            class="form-control"
+            id="field_version"
+            data-cy="version"
+            name="version"
+            formControlName="version"
+            [compareWith]="compareProgramVersion"
+          >
+            <option [ngValue]="null"></option>
+            @for (programVersionOption of programVersionsSharedCollection; track $index) {
+              <option [ngValue]="programVersionOption">{{ programVersionOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_site">Site</label>
+          <select class="form-control" id="field_site" data-cy="site" name="site" formControlName="site" [compareWith]="compareSiteOrgTemp">
+            <option [ngValue]="null"></option>
+            @for (siteOrgTempOption of siteOrgTempsSharedCollection; track $index) {
+              <option [ngValue]="siteOrgTempOption">{{ siteOrgTempOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

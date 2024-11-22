@@ -1,0 +1,50 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (programVersion(); as programVersionRef) {
+      <div>
+        <h2 data-cy="programVersionDetailsHeading"><span>Program Version</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span>ID</span></dt>
+          <dd>
+            <span>{{ programVersionRef.id }}</span>
+          </dd>
+          <dt><span>Version</span></dt>
+          <dd>
+            <span>{{ programVersionRef.version }}</span>
+          </dd>
+          <dt><span>Is Active</span></dt>
+          <dd>
+            <span>{{ programVersionRef.isActive }}</span>
+          </dd>
+          <dt><span>Publish Date</span></dt>
+          <dd>
+            <span>{{ programVersionRef.publishDate | formatMediumDate }}</span>
+          </dd>
+          <dt><span>Program</span></dt>
+          <dd>
+            @if (programVersion()!.program) {
+              <div>
+                <a [routerLink]="['/program', programVersion()!.program?.id, 'view']">{{ programVersionRef.program?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/program-version', programVersionRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

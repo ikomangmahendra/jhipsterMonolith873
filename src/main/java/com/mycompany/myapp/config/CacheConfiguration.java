@@ -83,6 +83,18 @@ public class CacheConfiguration {
             createCache(cm, com.mycompany.myapp.domain.User.class.getName(), jcacheConfiguration);
             createCache(cm, com.mycompany.myapp.domain.Authority.class.getName(), jcacheConfiguration);
             createCache(cm, com.mycompany.myapp.domain.User.class.getName() + ".authorities", jcacheConfiguration);
+            createCache(cm, com.mycompany.myapp.domain.UserTemp.class.getName(), jcacheConfiguration);
+            createCache(cm, com.mycompany.myapp.domain.UserTemp.class.getName() + ".programs", jcacheConfiguration);
+            createCache(cm, com.mycompany.myapp.domain.SiteOrgTemp.class.getName(), jcacheConfiguration);
+            createCache(cm, com.mycompany.myapp.domain.SiteOrgTemp.class.getName() + ".additionalVariables", jcacheConfiguration);
+            createCache(cm, com.mycompany.myapp.domain.Program.class.getName(), jcacheConfiguration);
+            createCache(cm, com.mycompany.myapp.domain.Program.class.getName() + ".versions", jcacheConfiguration);
+            createCache(cm, com.mycompany.myapp.domain.Program.class.getName() + ".coordinators", jcacheConfiguration);
+            createCache(cm, com.mycompany.myapp.domain.ProgramVersion.class.getName(), jcacheConfiguration);
+            createCache(cm, com.mycompany.myapp.domain.ProgramVersion.class.getName() + ".programVariables", jcacheConfiguration);
+            createCache(cm, com.mycompany.myapp.domain.ProgramVersion.class.getName() + ".additionalVariables", jcacheConfiguration);
+            createCache(cm, com.mycompany.myapp.domain.AccuteProgramVariable.class.getName(), jcacheConfiguration);
+            createCache(cm, com.mycompany.myapp.domain.AdditionalVariable.class.getName(), jcacheConfiguration);
             // jhipster-needle-redis-add-entry
         };
     }

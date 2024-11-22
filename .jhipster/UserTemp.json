@@ -1,0 +1,13 @@
+{
+  "annotations": {
+    "changelogDate": "20241122072840"
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "fields": [],
+  "name": "UserTemp",
+  "pagination": "pagination",
+  "relationships": [],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

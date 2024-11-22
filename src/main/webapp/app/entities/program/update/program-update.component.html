@@ -1,0 +1,218 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-program-heading" data-cy="ProgramCreateUpdateHeading">Create or edit a Program</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let nameRef = editForm.get('name')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_name">Name</label>
+          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+          @if (nameRef.invalid && (nameRef.dirty || nameRef.touched)) {
+            <div>
+              @if (editForm.get('name')?.errors?.required) {
+                <small class="form-text text-danger">This field is required.</small>
+              }
+              @if (editForm.get('name')?.errors?.maxlength) {
+                <small class="form-text text-danger">This field cannot be longer than 50 characters.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let typeRef = editForm.get('type')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_type">Type</label>
+          <select class="form-control" name="type" formControlName="type" id="field_type" data-cy="type">
+            <option [ngValue]="null"></option>
+            @for (programType of programTypeValues; track $index) {
+              <option [value]="programType">{{ { null: '', PERMANENT: 'PERMANENT', TIME_LIMITED: 'TIME_LIMITED' }[programType] }}</option>
+            }
+          </select>
+          @if (typeRef.invalid && (typeRef.dirty || typeRef.touched)) {
+            <div>
+              @if (editForm.get('type')?.errors?.required) {
+                <small class="form-text text-danger">This field is required.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_startDate">Start Date</label>
+          <div class="d-flex">
+            <input
+              id="field_startDate"
+              data-cy="startDate"
+              type="datetime-local"
+              class="form-control"
+              name="startDate"
+              formControlName="startDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_endDate">End Date</label>
+          <div class="d-flex">
+            <input
+              id="field_endDate"
+              data-cy="endDate"
+              type="datetime-local"
+              class="form-control"
+              name="endDate"
+              formControlName="endDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        @let statusRef = editForm.get('status')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_status">Status</label>
+          <select class="form-control" name="status" formControlName="status" id="field_status" data-cy="status">
+            <option [ngValue]="null"></option>
+            @for (programStatus of programStatusValues; track $index) {
+              <option [value]="programStatus">
+                {{ { null: '', PENDING: 'PENDING', ACTIVE: 'ACTIVE', CLOSED: 'CLOSED', ARCHIVED: 'ARCHIVED' }[programStatus] }}
+              </option>
+            }
+          </select>
+          @if (statusRef.invalid && (statusRef.dirty || statusRef.touched)) {
+            <div>
+              @if (editForm.get('status')?.errors?.required) {
+                <small class="form-text text-danger">This field is required.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let externalSystemLkpRef = editForm.get('externalSystemLkp')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_externalSystemLkp">External System Lkp</label>
+          <input
+            type="number"
+            class="form-control"
+            name="externalSystemLkp"
+            id="field_externalSystemLkp"
+            data-cy="externalSystemLkp"
+            formControlName="externalSystemLkp"
+          />
+          @if (externalSystemLkpRef.invalid && (externalSystemLkpRef.dirty || externalSystemLkpRef.touched)) {
+            <div>
+              @if (editForm.get('externalSystemLkp')?.errors?.required) {
+                <small class="form-text text-danger">This field is required.</small>
+              }
+              <small class="form-text text-danger" [hidden]="!editForm.get('externalSystemLkp')?.errors?.number"
+                >This field should be a number.</small
+              >
+            </div>
+          }
+        </div>
+
+        @let isEnableFollowUpRef = editForm.get('isEnableFollowUp')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_isEnableFollowUp">Is Enable Follow Up</label>
+          <input
+            type="checkbox"
+            class="form-check"
+            name="isEnableFollowUp"
+            id="field_isEnableFollowUp"
+            data-cy="isEnableFollowUp"
+            formControlName="isEnableFollowUp"
+          />
+          @if (isEnableFollowUpRef.invalid && (isEnableFollowUpRef.dirty || isEnableFollowUpRef.touched)) {
+            <div>
+              @if (editForm.get('isEnableFollowUp')?.errors?.required) {
+                <small class="form-text text-danger">This field is required.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let isNsfSurveyAccessRef = editForm.get('isNsfSurveyAccess')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_isNsfSurveyAccess">Is Nsf Survey Access</label>
+          <input
+            type="checkbox"
+            class="form-check"
+            name="isNsfSurveyAccess"
+            id="field_isNsfSurveyAccess"
+            data-cy="isNsfSurveyAccess"
+            formControlName="isNsfSurveyAccess"
+          />
+          @if (isNsfSurveyAccessRef.invalid && (isNsfSurveyAccessRef.dirty || isNsfSurveyAccessRef.touched)) {
+            <div>
+              @if (editForm.get('isNsfSurveyAccess')?.errors?.required) {
+                <small class="form-text text-danger">This field is required.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let isOptOutAllowedRef = editForm.get('isOptOutAllowed')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_isOptOutAllowed">Is Opt Out Allowed</label>
+          <input
+            type="checkbox"
+            class="form-check"
+            name="isOptOutAllowed"
+            id="field_isOptOutAllowed"
+            data-cy="isOptOutAllowed"
+            formControlName="isOptOutAllowed"
+          />
+          @if (isOptOutAllowedRef.invalid && (isOptOutAllowedRef.dirty || isOptOutAllowedRef.touched)) {
+            <div>
+              @if (editForm.get('isOptOutAllowed')?.errors?.required) {
+                <small class="form-text text-danger">This field is required.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label for="field_coordinators">Coordinators</label>
+          <select
+            class="form-control"
+            id="field_coordinators"
+            data-cy="coordinators"
+            multiple
+            name="coordinators"
+            formControlName="coordinators"
+            [compareWith]="compareUserTemp"
+          >
+            @for (userTempOption of userTempsSharedCollection; track $index) {
+              <option [ngValue]="userTempOption">{{ userTempOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

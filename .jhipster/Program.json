@@ -1,0 +1,74 @@
+{
+  "annotations": {
+    "changelogDate": "20241122072842"
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "50"
+    },
+    {
+      "fieldName": "type",
+      "fieldType": "ProgramType",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "PERMANENT,TIME_LIMITED"
+    },
+    {
+      "fieldName": "startDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "endDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "ProgramStatus",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "PENDING,ACTIVE,CLOSED,ARCHIVED"
+    },
+    {
+      "fieldName": "externalSystemLkp",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "isEnableFollowUp",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "isNsfSurveyAccess",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "isOptOutAllowed",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "name": "Program",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "programVersion",
+      "otherEntityRelationshipName": "program",
+      "relationshipName": "versions",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "userTemp",
+      "relationshipName": "coordinators",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

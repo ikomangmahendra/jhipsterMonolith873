@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <!--
+        Added the constraints for entity ProgramVersion.
+    -->
+    <changeSet id="20241122072843-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="program_id"
+                                 baseTableName="program_version"
+                                 constraintName="fk_program_version__program_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="program"
+                                 />
+    </changeSet>
+</databaseChangeLog>

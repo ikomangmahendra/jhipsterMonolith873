@@ -1,0 +1,21 @@
+{
+  "annotations": {
+    "changelogDate": "20241122072841"
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "fields": [],
+  "name": "SiteOrgTemp",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "additionalVariable",
+      "otherEntityRelationshipName": "site",
+      "relationshipName": "additionalVariable",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

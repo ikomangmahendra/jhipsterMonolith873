@@ -1,0 +1,134 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-accute-program-variable-heading" data-cy="AccuteProgramVariableCreateUpdateHeading">
+        Create or edit a Accute Program Variable
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let sectionIdRef = editForm.get('sectionId')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_sectionId">Section Id</label>
+          <input type="text" class="form-control" name="sectionId" id="field_sectionId" data-cy="sectionId" formControlName="sectionId" />
+          @if (sectionIdRef.invalid && (sectionIdRef.dirty || sectionIdRef.touched)) {
+            <div>
+              @if (editForm.get('sectionId')?.errors?.required) {
+                <small class="form-text text-danger">This field is required.</small>
+              }
+              @if (editForm.get('sectionId')?.errors?.maxlength) {
+                <small class="form-text text-danger">This field cannot be longer than 50 characters.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let sectionNameRef = editForm.get('sectionName')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_sectionName">Section Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="sectionName"
+            id="field_sectionName"
+            data-cy="sectionName"
+            formControlName="sectionName"
+          />
+          @if (sectionNameRef.invalid && (sectionNameRef.dirty || sectionNameRef.touched)) {
+            <div>
+              @if (editForm.get('sectionName')?.errors?.required) {
+                <small class="form-text text-danger">This field is required.</small>
+              }
+              @if (editForm.get('sectionName')?.errors?.maxlength) {
+                <small class="form-text text-danger">This field cannot be longer than 50 characters.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let orderIndexRef = editForm.get('orderIndex')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_orderIndex">Order Index</label>
+          <input
+            type="number"
+            class="form-control"
+            name="orderIndex"
+            id="field_orderIndex"
+            data-cy="orderIndex"
+            formControlName="orderIndex"
+          />
+          @if (orderIndexRef.invalid && (orderIndexRef.dirty || orderIndexRef.touched)) {
+            <div>
+              @if (editForm.get('orderIndex')?.errors?.required) {
+                <small class="form-text text-danger">This field is required.</small>
+              }
+              <small class="form-text text-danger" [hidden]="!editForm.get('orderIndex')?.errors?.number"
+                >This field should be a number.</small
+              >
+            </div>
+          }
+        </div>
+
+        @let jsonSchemaRef = editForm.get('jsonSchema')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_jsonSchema">Json Schema</label>
+          <textarea
+            class="form-control"
+            name="jsonSchema"
+            id="field_jsonSchema"
+            data-cy="jsonSchema"
+            formControlName="jsonSchema"
+          ></textarea>
+          @if (jsonSchemaRef.invalid && (jsonSchemaRef.dirty || jsonSchemaRef.touched)) {
+            <div>
+              @if (editForm.get('jsonSchema')?.errors?.required) {
+                <small class="form-text text-danger">This field is required.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_version">Version</label>
+          <select
+            class="form-control"
+            id="field_version"
+            data-cy="version"
+            name="version"
+            formControlName="version"
+            [compareWith]="compareProgramVersion"
+          >
+            <option [ngValue]="null"></option>
+            @for (programVersionOption of programVersionsSharedCollection; track $index) {
+              <option [ngValue]="programVersionOption">{{ programVersionOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

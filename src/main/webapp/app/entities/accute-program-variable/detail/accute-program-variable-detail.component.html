@@ -1,0 +1,56 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (accuteProgramVariable(); as accuteProgramVariableRef) {
+      <div>
+        <h2 data-cy="accuteProgramVariableDetailsHeading"><span>Accute Program Variable</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span>ID</span></dt>
+          <dd>
+            <span>{{ accuteProgramVariableRef.id }}</span>
+          </dd>
+          <dt><span>Section Id</span></dt>
+          <dd>
+            <span>{{ accuteProgramVariableRef.sectionId }}</span>
+          </dd>
+          <dt><span>Section Name</span></dt>
+          <dd>
+            <span>{{ accuteProgramVariableRef.sectionName }}</span>
+          </dd>
+          <dt><span>Order Index</span></dt>
+          <dd>
+            <span>{{ accuteProgramVariableRef.orderIndex }}</span>
+          </dd>
+          <dt><span>Json Schema</span></dt>
+          <dd>
+            <span>{{ accuteProgramVariableRef.jsonSchema }}</span>
+          </dd>
+          <dt><span>Version</span></dt>
+          <dd>
+            @if (accuteProgramVariable()!.version) {
+              <div>
+                <a [routerLink]="['/program-version', accuteProgramVariable()!.version?.id, 'view']">{{
+                  accuteProgramVariableRef.version?.id
+                }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/accute-program-variable', accuteProgramVariableRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

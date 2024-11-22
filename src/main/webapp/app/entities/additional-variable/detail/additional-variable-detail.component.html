@@ -1,0 +1,56 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (additionalVariable(); as additionalVariableRef) {
+      <div>
+        <h2 data-cy="additionalVariableDetailsHeading"><span>Additional Variable</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span>ID</span></dt>
+          <dd>
+            <span>{{ additionalVariableRef.id }}</span>
+          </dd>
+          <dt><span>Program Version Id</span></dt>
+          <dd>
+            <span>{{ additionalVariableRef.programVersionId }}</span>
+          </dd>
+          <dt><span>Json Schema</span></dt>
+          <dd>
+            <span>{{ additionalVariableRef.jsonSchema }}</span>
+          </dd>
+          <dt><span>Version</span></dt>
+          <dd>
+            @if (additionalVariable()!.version) {
+              <div>
+                <a [routerLink]="['/program-version', additionalVariable()!.version?.id, 'view']">{{
+                  additionalVariableRef.version?.id
+                }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span>Site</span></dt>
+          <dd>
+            @if (additionalVariable()!.site) {
+              <div>
+                <a [routerLink]="['/site-org-temp', additionalVariable()!.site?.id, 'view']">{{ additionalVariableRef.site?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/additional-variable', additionalVariableRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

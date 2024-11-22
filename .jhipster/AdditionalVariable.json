@@ -1,0 +1,38 @@
+{
+  "annotations": {
+    "changelogDate": "20241122072845"
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "programVersionId",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "jsonSchema",
+      "fieldType": "TextBlob",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "name": "AdditionalVariable",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "programVersion",
+      "otherEntityRelationshipName": "additionalVariables",
+      "relationshipName": "version",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "siteOrgTemp",
+      "relationshipName": "site",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}
