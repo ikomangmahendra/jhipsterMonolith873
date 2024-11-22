@@ -1,0 +1,29 @@
+enum ProgramStatus {
+    PENDING,
+    ACTIVE,
+    CLOSED,
+    ARCHIVED
+}
+
+enum ProgramType {
+  	PERMANENT, TIME_LIMITED
+}
+
+entity UserTemp {
+}
+
+entity Program {
+	name String required maxlength(50)
+  	type ProgramType required
+  	startDate Instant
+  	endDate Instant
+  	status ProgramStatus required
+    externalSystemLkp Integer required
+  	isEnableFollowUp Boolean required
+  	isNsfSurveyAccess Boolean required
+  	isOptOutAllowed Boolean required
+}
+
+relationship ManyToMany {
+    Program{coordinators} to UserTemp
+}
