@@ -1,0 +1,10 @@
+{
+  "annotations": {
+    "changelogDate": "20241122070956"
+  },
+  "applications": "*",
+  "fields": [],
+  "name": "UserTemp",
+  "relationships": [],
+  "searchEngine": "no"
+}

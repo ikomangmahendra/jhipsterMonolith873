@@ -1,0 +1,77 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (program(); as programRef) {
+      <div>
+        <h2 data-cy="programDetailsHeading"><span>Program</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span>ID</span></dt>
+          <dd>
+            <span>{{ programRef.id }}</span>
+          </dd>
+          <dt><span>Name</span></dt>
+          <dd>
+            <span>{{ programRef.name }}</span>
+          </dd>
+          <dt><span>Type</span></dt>
+          <dd>
+            <span>{{ { null: '', PERMANENT: 'PERMANENT', TIME_LIMITED: 'TIME_LIMITED' }[programRef.type ?? 'null'] }}</span>
+          </dd>
+          <dt><span>Start Date</span></dt>
+          <dd>
+            <span>{{ programRef.startDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span>End Date</span></dt>
+          <dd>
+            <span>{{ programRef.endDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span>Status</span></dt>
+          <dd>
+            <span>{{
+              { null: '', PENDING: 'PENDING', ACTIVE: 'ACTIVE', CLOSED: 'CLOSED', ARCHIVED: 'ARCHIVED' }[programRef.status ?? 'null']
+            }}</span>
+          </dd>
+          <dt><span>External System Lkp</span></dt>
+          <dd>
+            <span>{{ programRef.externalSystemLkp }}</span>
+          </dd>
+          <dt><span>Is Enable Follow Up</span></dt>
+          <dd>
+            <span>{{ programRef.isEnableFollowUp }}</span>
+          </dd>
+          <dt><span>Is Nsf Survey Access</span></dt>
+          <dd>
+            <span>{{ programRef.isNsfSurveyAccess }}</span>
+          </dd>
+          <dt><span>Is Opt Out Allowed</span></dt>
+          <dd>
+            <span>{{ programRef.isOptOutAllowed }}</span>
+          </dd>
+          <dt><span>Coordinators</span></dt>
+          <dd>
+            @for (coordinators of programRef.coordinators; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/user-temp', coordinators.id, 'view']">{{ coordinators?.id }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/program', programRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

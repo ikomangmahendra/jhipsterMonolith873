@@ -1,0 +1,11 @@
+id;name;type;start_date;end_date;status;external_system_lkp;is_enable_follow_up;is_nsf_survey_access;is_opt_out_allowed
+1;bah liquid victoriously;TIME_LIMITED;2024-11-21T22:48:17;2024-11-22T02:43:48;PENDING;2558;false;false;false
+2;drive separate muddy;PERMANENT;2024-11-22T06:25:44;2024-11-22T06:27:43;PENDING;179;true;true;false
+3;impartial sans;PERMANENT;2024-11-21T19:16:30;2024-11-22T04:22:51;ACTIVE;21892;false;false;true
+4;ample;TIME_LIMITED;2024-11-21T15:10:22;2024-11-22T02:00:27;ARCHIVED;9077;true;true;false
+5;er purple;PERMANENT;2024-11-21T22:11:20;2024-11-21T23:21:19;ARCHIVED;27306;false;true;false
+6;by;PERMANENT;2024-11-21T11:12:54;2024-11-21T21:46:22;PENDING;2746;true;true;false
+7;which;TIME_LIMITED;2024-11-21T12:15:22;2024-11-21T17:32:24;CLOSED;3490;true;false;false
+8;athwart quick-witted tank;PERMANENT;2024-11-22T04:42:18;2024-11-22T05:50:44;CLOSED;5475;false;true;true
+9;near next outfox;PERMANENT;2024-11-21T17:11:49;2024-11-21T13:59:30;ARCHIVED;5482;false;true;false
+10;like;PERMANENT;2024-11-21T11:18:11;2024-11-21T10:29:14;ACTIVE;16879;false;false;true
