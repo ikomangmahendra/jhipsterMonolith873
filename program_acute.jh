@@ -1,0 +1,209 @@
+enum ProgramStatus {
+    PENDING,
+    ACTIVE,
+    CLOSED,
+    ARCHIVED
+}
+
+enum ProgramType {
+  	PERMANENT, TIME_LIMITED
+}
+
+entity UserTemp {
+}
+entity SiteOrganisation {
+}
+
+entity Program {
+	name String required maxlength(50)
+  	type ProgramType required
+  	startDate LocalDate required
+  	endDate LocalDate required
+  	status ProgramStatus required
+    externalSystemLkp Integer required
+  	isEnableFollowUp Boolean required
+  	isNsfSurveyAccess Boolean required
+  	isOptOutAllowed Boolean required
+}
+
+entity ProgramVersion {
+	version Integer required
+    isActive Boolean required
+    publishDate LocalDate
+}
+
+// change orderIndex to smallint
+entity AcuteProgramVariable {
+	sectionId String required maxlength(50)
+	sectionName String required maxlength(50)
+  	orderIndex Integer required
+  	jsonSchema TextBlob required
+}
+
+entity AdditionalVariable {	
+    programVersionId Integer required
+	jsonSchema TextBlob required
+}
+
+//------------- outcome assessment section -------------------------
+enum EpisodeIndexDateType {
+	ADMISSION_DATE,
+    ARRIVAL_DATE,
+    STROKE_ONSET_DATE,
+    DISCHARGE_DATE
+}
+
+enum StrokeType {
+	TIA,
+    ISCHAEMIC,
+    HAEMORRHAGE,
+    UNDETERMINED
+}
+
+enum AttemptType {
+	POST,
+    SMS,
+    EMAIL,
+    PHONE,
+    IN_PERSON
+}
+
+enum RecipientType {
+	REGISTRANT,
+    CONTACT_PERSON
+}
+
+enum AssessmentConfigStatus {
+	WAITING
+    IN_PROGRESS,
+    HOLD
+}
+
+// store type: TIA, ISCHAEMIC, HAEMORRHAGE,  UNDETERMINED
+// Unknown: registrantHasAnotherEpisode
+// missing batch
+entity OutcomeAssessmentConfig {
+    strokeType StrokeType required
+    ageRangeStartDay Integer
+    ageRangeEndDay Integer
+    sex Gender
+    ethnicGroup String
+    countryOfBirth String
+    state String maxlength(3)
+    isDiedInHospital Boolean required
+    isMobilisedDuringAdmission Boolean required
+    hasAnotherEpisode Boolean required
+    isAllowedAnotherFollowUp Boolean required
+    isRefuseToFollowUp Boolean required
+    isOptOuts Boolean required
+    episodeIndexDate EpisodeIndexDateType required
+    dateRangeStartDay Integer required
+    dateRangeStartDay Integer required
+    status AssessmentConfigStatus required
+}
+
+entity OutcomeAssessmentConfigAttempt {
+	attemptType AttemptType required
+	recipientType RecipientType required
+    noOfDuration Integer required
+}
+
+entity OutcomeAssessmentDetail {
+
+}
+
+entity OutcomeAssessmentVariable {
+	sectionId String required maxlength(50)
+	sectionName String required maxlength(50)
+  	orderIndex Integer required
+  	jsonSchema TextBlob required
+}
+
+entity OutcomeAssessmentResult {
+	attemptType AttemptType required
+    attemptDuration Integer    
+}
+
+enum BatchStatus {
+	NOT_STARTED,
+	IN_PROGRESS,
+	COMPLETED    
+}
+
+entity Batch {
+	batchId String required maxlength(8)
+    startDate LocalDate required
+    endDate LocalDate required
+    status BatchStatus required
+    
+    strokeType StrokeType required
+    ageRangeStartDay Integer
+    ageRangeEndDay Integer
+    sex Gender
+    ethnicGroup String
+    countryOfBirth String
+    state String maxlength(3)
+    isDiedInHospital Boolean required
+    isMobilisedDuringAdmission Boolean required
+    hasAnotherEpisode Boolean required
+    isAllowedAnotherFollowUp Boolean required
+    isRefuseToFollowUp Boolean required
+    isOptOuts Boolean required
+    
+    executedBy String maxlength(50)
+}
+
+entity BatchDetail {
+	attemptType AttemptType required
+	recipientType RecipientType required
+    noOfDuration Integer required
+    attemptType AttemptType required
+	recipientType RecipientType required
+    noOfDuration Integer required
+}
+// --------------------------------------------
+entity PatientSiteOrganisation {
+}
+
+entity PatientEpisode {
+
+}
+
+relationship OneToMany {
+	/* program coordinator */
+	Program{coordinators} to UserTemp
+    /* program site locations */
+    Program{siteOrganizations} to SiteOrgTemp
+    
+    /* program acute */
+    Program{versions} to ProgramVersion{program}
+    ProgramVersion{programVariables} to AcuteProgramVariable{version}    
+    AccuteProgramVariable{patients} to PatientProgramVariableRecord{acuteVariable}  
+    
+    /* Program acute with additional variables */
+    SiteOrgTemp to AdditionalVariable{site}
+    ProgramVersion{additionalVariables} to AdditionalVariable{version}
+    
+    /* program outcome assessment */
+    Program{outcomeAssessments} to OutcomeAssessmentConfig{program}
+    OutcomeAssessmentConfig{assessmentDetails} to OutcomeAssessmentDetail{outcomeAssessmentConfig}
+    OutcomeAssessmentDetail{assessmentVariables} to OutcomeAssessmentVariable{outcomeAssessmentDetail}    
+    OutcomeAssessmentConfig{configAttempts} to OutcomeAssessmentConfigAttempt{config}
+    OutcomeAssessmentDetail{batches} to Batch{outcomeAssessmentDetail}
+    Batch{batchDetails} to BatchDetail{batch}
+    OutcomeAssessmentResult to BatchDetail{outcomeAssessmentResult}
+    PatientEpisode to OutcomeAssessmentResult{patientEpisode}    
+    
+    
+    /* site organisation patients*/
+    SiteOrganisation{patients} to PatientSiteOrganisation{site}
+    PatientSiteOrganisation{episodes} to PatientEpisode{patient}
+}
+
+relationship ManyToMany {
+    Program{coordinators} to UserTemp
+}
+
+dto * with mapstruct
+paginate * with pagination
+service * with serviceClass
