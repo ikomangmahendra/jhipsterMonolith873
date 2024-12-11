@@ -1,0 +1,30 @@
+{
+  "annotations": {
+    "changelogDate": "20241211071238"
+  },
+  "applications": "*",
+  "fields": [],
+  "name": "UserSiteOrganisation",
+  "relationships": [
+    {
+      "otherEntityName": "userTemp",
+      "otherEntityRelationshipName": "siteOrganisations",
+      "relationshipName": "user",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "siteOrganisation",
+      "relationshipName": "siteOrganisation",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "role",
+      "relationshipName": "role",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no"
+}
