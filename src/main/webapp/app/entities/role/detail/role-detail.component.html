@@ -1,0 +1,47 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (role(); as roleRef) {
+      <div>
+        <h2 data-cy="roleDetailsHeading"><span>Role</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span>ID</span></dt>
+          <dd>
+            <span>{{ roleRef.id }}</span>
+          </dd>
+          <dt><span>User</span></dt>
+          <dd>
+            @if (role()!.user) {
+              <div>
+                <a [routerLink]="['/user-temp', role()!.user?.id, 'view']">{{ roleRef.user?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span>User Site Organisation</span></dt>
+          <dd>
+            @for (userSiteOrganisation of roleRef.userSiteOrganisations; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/user-site-organisation', userSiteOrganisation.id, 'view']">{{ userSiteOrganisation?.id }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/role', roleRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

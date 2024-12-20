@@ -1,0 +1,18 @@
+{
+  "annotations": {
+    "changelogDate": "20241220033218"
+  },
+  "applications": "*",
+  "fields": [],
+  "name": "SiteOrganisation",
+  "relationships": [
+    {
+      "otherEntityName": "userSiteOrganisation",
+      "otherEntityRelationshipName": "siteOrganisation",
+      "relationshipName": "userSiteOrganisations",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": "no"
+}
