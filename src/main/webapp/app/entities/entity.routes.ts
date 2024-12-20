@@ -6,6 +6,11 @@ const routes: Routes = [
     data: { pageTitle: 'Authorities' },
     loadChildren: () => import('./admin/authority/authority.routes'),
   },
+  {
+    path: 'form-variable',
+    data: { pageTitle: 'FormVariables' },
+    loadChildren: () => import('./form-variable/form-variable.routes'),
+  },
   /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
 ];
 
