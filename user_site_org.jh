@@ -1,0 +1,19 @@
+entity UserTemp {
+}
+
+entity SiteOrganisation {
+}
+
+entity UserSiteOrganisation {
+}
+
+entity Role {
+}
+
+relationship OneToMany{
+	UserTemp{roles} to Role{user}
+    UserTemp{siteOrganisations} to UserSiteOrganisation{user}
+	
+	UserSiteOrganisation{roles} to Role{userSiteOrganisation}
+    SiteOrganisation{userSiteOrganisations} to UserSiteOrganisation{siteOrganisation}
+}
