@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <!--
+        Added the constraints for entity UserSiteOrganisation.
+    -->
+    <changeSet id="20241220033219-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="user_site_organisation_id"
+                                 baseTableName="rel_user_site_organisation__roles"
+                                 constraintName="fk_rel_user_site_organisation__roles__user_site_organisation_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="user_site_organisation"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="roles_id"
+                                 baseTableName="rel_user_site_organisation__roles"
+                                 constraintName="fk_rel_user_site_organisation__roles__roles_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="role"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="user_site_organisation"
+                                 constraintName="fk_user_site_organisation__user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="user_temp"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="site_organisation_id"
+                                 baseTableName="user_site_organisation"
+                                 constraintName="fk_user_site_organisation__site_organisation_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="site_organisation"
+                                 />
+    </changeSet>
+</databaseChangeLog>
